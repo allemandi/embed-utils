@@ -1,5 +1,5 @@
 {
-  "name": "embed-utils",
+  "name": "@allemandi/embed-utils",
   "version": "1.0.0",
   "description": "text classification embedding utils for cosine similarity",
   "main": "index.js",
