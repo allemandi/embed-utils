@@ -3,7 +3,7 @@
  * This measures how similar two vectors are.
  */
 
-function cosineSimilarity(vecA, vecB) {
+function computeCosineSimilarity(vecA, vecB) {
   let dot = 0;
   let magA = 0;
   let magB = 0;
@@ -21,6 +21,4 @@ function cosineSimilarity(vecA, vecB) {
   return denom === 0 ? 0 : dot / denom;
 }
 
-
-
-module.exports = cosineSimilarity;
+module.exports = computeCosineSimilarity;
