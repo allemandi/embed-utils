@@ -9,8 +9,8 @@
 
 - 🔍 Find the closest matches between vector embeddings
 - 📐 Compute cosine similarity
-- ⚡ Fast and lightweight
-- 🧪 Built-in support for testing with Jest
+- ⚡ Lightweight and fast vector operations
+- 🧪 Includes tests with Jest
 
 ## 🛠️ Installation
 ```bash
@@ -22,8 +22,10 @@ npm install @allemandi/embed-utils
 ```
 
 ## 🖥️ Usage
-```
-const { findClosest, cosineSimilarity } = require('@allemandi/embed-utils');
+```bash
+# example
+
+const { findNearestNeighbors } = require('@allemandi/embed-utils');
 
 const samples = [
   { embedding: [0.1, 0.2, 0.3], label: 'sports' },
@@ -31,15 +33,23 @@ const samples = [
   { embedding: [0.05, 0.1, 0.15], label: 'sports' },
 ];
 
-const input = [0.09, 0.18, 0.27];
+const query = [0.09, 0.18, 0.27];
 
-const results = findClosest(input, samples, { topK: 2, threshold: 0.5 });
+# Find top 2 neighbors with similarity ≥ 0.5
+const results = findNearestNeighbors(query, samples, { topK: 2, threshold: 0.5 });
 
 console.log(results);
+# [ { embedding: [0.1, 0.2, 0.3], label: "sports", similarityScore: 1 },
+#   { embedding: [0.05, 0.1, 0.15], label: "sports", similarityScore: 1 } ] 
 ```
+## API Reference
+| Method | Usage & Params | Returns |
+| --- | --- | --- |
+| `computeCosineSimilarity(vecA, vecB)` | Computes cosine similarity between two numeric vectors.<br> **Params:** <br> - `vecA` (number[]): first vector <br> - `vecB` (number[]): second vector | number (similarity score between -1 and 1) |
+| `findNearestNeighbors(queryEmbedding, samples, options)` | Finds top K nearest neighbors from samples by cosine similarity to `queryEmbedding`. <br> **Params:** <br> - `queryEmbedding` (number[]): query vector <br> - `samples` (Array<{embedding: number[]}>) dataset with embeddings <br> - `options` (object): optional <br> &nbsp;&nbsp;- `topK` (number, default=1) max results <br> &nbsp;&nbsp;- `threshold` (number, default=0) min similarity | Array of samples with `similarityScore` sorted descending |
 
 
-### Tests
+## Tests
 ```bash
 # Run the test suite with Jest
 yarn test 
