@@ -9,7 +9,13 @@
     "cosine-similarity",
     "embeddings"
   ],
+  "scripts": {
+    "test": "jest"
+  },
   "repository": "https://github.com/allemandi/embed-utils",
   "author": "allemandi <69766017+allemandi@users.noreply.github.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
