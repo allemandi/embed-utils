@@ -31,8 +31,6 @@ describe('findClosest', () => {
   test('returns empty if no samples meet threshold', () => {
     const input = [-1, 0];
     const result = findClosest(input, samples, { threshold: 1 });
-    console.log(result);
-    console.log(result.length);
     expect(result.length).toBe(0);
   });
 });
