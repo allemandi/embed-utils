@@ -1,0 +1,15 @@
+{
+  "name": "embed-utils",
+  "version": "1.0.0",
+  "description": "text classification embedding utils for cosine similarity",
+  "main": "index.js",
+  "keywords": [
+    "text",
+    "classification",
+    "cosine-similarity",
+    "embeddings"
+  ],
+  "repository": "https://github.com/allemandi/embed-utils",
+  "author": "allemandi <69766017+allemandi@users.noreply.github.com>",
+  "license": "MIT"
+}
