@@ -1,4 +1,4 @@
-const findNearestNeighbors = require('../src/findNearestNeighbors');
+import { findNearestNeighbors } from '../src/findNearestNeighbors';
 
 describe('findNearestNeighbors', () => {
   const samples = [

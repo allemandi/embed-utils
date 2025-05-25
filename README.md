@@ -10,7 +10,7 @@
 - 🔍 Find the closest matches between vector embeddings
 - 📐 Compute cosine similarity
 - ⚡ Lightweight and fast vector operations
-- 🧪 Includes tests with Jest
+- 🧪 Supports both ES Modules (ESM) and CommonJS (CJS)
 
 ## 🛠️ Installation
 ```bash
@@ -22,9 +22,17 @@ npm install @allemandi/embed-utils
 ```
 
 ## 🖥️ Usage
+ESM imports
 ```bash
-# example
+import { computeCosineSimilarity } from '@allemandi/embed-utils';
+```
+CommonJS imports
+```bash
+const { computeCosineSimilarity } = require('@allemandi/embed-utils');
+```
+Example
 
+```bash
 const { findNearestNeighbors } = require('@allemandi/embed-utils');
 
 const samples = [
@@ -52,7 +60,7 @@ console.log(results);
 ## Tests
 ```bash
 # Run the test suite with Jest
-yarn test 
+yarn test
 ```
 
 ## 🔗 Related Projects
