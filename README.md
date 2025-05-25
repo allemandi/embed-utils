@@ -4,6 +4,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/allemandi/embed-utils/blob/main/LICENSE)
 
 > Utilities for text classification using cosine similarity embeddings.
+>
+> Supports ESM, CommonJS, and UMD – works in modern builds, Node.js, and browsers.
 
 ## ✨ Features
 
@@ -14,23 +16,19 @@
 
 ## 🛠️ Installation
 ```bash
-# Install using Yarn
+# Yarn
 yarn add @allemandi/embed-utils
 
-# or using NPM
+# NPM
 npm install @allemandi/embed-utils
 ```
 
-## 🖥️ Usage
-ESM imports
+## 🚀 Quick Usage Examples
+ESM
 ```bash
 import { computeCosineSimilarity } from '@allemandi/embed-utils';
 ```
-CommonJS imports
-```bash
-const { computeCosineSimilarity } = require('@allemandi/embed-utils');
-```
-Example
+CommonJS
 
 ```bash
 const { findNearestNeighbors } = require('@allemandi/embed-utils');
@@ -50,17 +48,36 @@ console.log(results);
 # [ { embedding: [0.1, 0.2, 0.3], label: "sports", similarityScore: 1 },
 #   { embedding: [0.05, 0.1, 0.15], label: "sports", similarityScore: 1 } ] 
 ```
-## API Reference
-| Method | Usage & Params | Returns |
-| --- | --- | --- |
-| `computeCosineSimilarity(vecA, vecB)` | Computes cosine similarity between two numeric vectors.<br> **Params:** <br> - `vecA` (number[]): first vector <br> - `vecB` (number[]): second vector | number (similarity score between -1 and 1) |
-| `findNearestNeighbors(queryEmbedding, samples, options)` | Finds top K nearest neighbors from samples by cosine similarity to `queryEmbedding`. <br> **Params:** <br> - `queryEmbedding` (number[]): query vector <br> - `samples` (Array<{embedding: number[]}>) dataset with embeddings <br> - `options` (object): optional <br> &nbsp;&nbsp;- `topK` (number, default=1) max results <br> &nbsp;&nbsp;- `threshold` (number, default=0) min similarity | Array of samples with `similarityScore` sorted descending |
+UMD (Browser)
+```bash
+<script src="https://unpkg.com/@allemandi/embed-utils"></script>
+<script>
+    const a = [1, 2, 3];
+    const b = [1, 2, 3];
+  const result = window.allemandi.embedUtils.computeCosineSimilarity(a, b);
+  console.log(result);
+</script>
+```
 
 
-## Tests
+## 📦 API
+`computeCosineSimilarity(vecA: number[], vecB: number[])`
+
+Computes cosine similarity between two numeric vectors of the same size. Returns number (similarity score between -1 and 1)
+
+`findNearestNeighbors(queryEmbedding: number[], samples: Array<{embedding: number[]}>, { topK?: number, threshold?: number })`
+
+Finds top K nearest neighbors from samples by cosine similarity to `queryEmbedding`. Returns array of samples with `similarityScore` sorted descending
+- `options` (object): optional
+  - `topK` (number, default=1) max results
+  - `threshold` (number, default=0) min similarity between 0 and 1.
+
+## 🧪 Tests
 ```bash
 # Run the test suite with Jest
 yarn test
+# or
+npm test
 ```
 
 ## 🔗 Related Projects
