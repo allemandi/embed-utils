@@ -1,4 +1,4 @@
-const computeCosineSimilarity = require('../src/computeCosineSimilarity');
+import { computeCosineSimilarity } from '../src/computeCosineSimilarity';
 
 describe('computeCosineSimilarity', () => {
   test('returns 1 for identical vectors', () => {

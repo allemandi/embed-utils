@@ -21,4 +21,4 @@ function computeCosineSimilarity(vecA, vecB) {
   return denom === 0 ? 0 : dot / denom;
 }
 
-module.exports = computeCosineSimilarity;
+export { computeCosineSimilarity };

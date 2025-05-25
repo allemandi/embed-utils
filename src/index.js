@@ -1,7 +1,7 @@
-const computeCosineSimilarity = require('./computeCosineSimilarity');
-const findNearestNeighbors = require('./findNearestNeighbors');
+import { computeCosineSimilarity } from './computeCosineSimilarity.js';
+import { findNearestNeighbors } from './findNearestNeighbors.js';
 
-module.exports = {
+export {
   computeCosineSimilarity,
   findNearestNeighbors,
 };

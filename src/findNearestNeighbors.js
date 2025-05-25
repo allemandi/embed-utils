@@ -1,4 +1,4 @@
-const computeCosineSimilarity = require('./computeCosineSimilarity');
+import { computeCosineSimilarity } from './computeCosineSimilarity';
 
 /**
  * Finds the top K nearest neighbor samples to a query embedding based on cosine similarity.
@@ -31,4 +31,4 @@ function findNearestNeighbors(queryEmbedding, samples, options = {}) {
   return scoredSamples.slice(0, topK);
 }
 
-module.exports = findNearestNeighbors;
+export { findNearestNeighbors };
