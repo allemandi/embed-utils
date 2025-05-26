@@ -6,6 +6,17 @@
 > Utilities for text classification using cosine similarity embeddings.
 >
 > Supports ESM, CommonJS, and UMD – works in modern builds, Node.js, and browsers.
+ 
+<!-- omit from toc -->
+## 🔖 Table of Contents
+- [✨ Features](#-features)
+- [🛠️ Installation](#️-installation)
+- [🚀 Quick Usage Examples](#-quick-usage-examples)
+- [📦 API](#-api)
+- [🧪 Tests](#-tests)
+- [🔗 Related Projects](#-related-projects)
+- [🤝 Contributing](#-contributing)
+
 
 ## ✨ Features
 
@@ -61,16 +72,75 @@ UMD (Browser)
 
 
 ## 📦 API
-`computeCosineSimilarity(vecA: number[], vecB: number[])`
 
-Computes cosine similarity between two numeric vectors of the same size. Returns number (similarity score between -1 and 1)
+### `computeCosineSimilarity(vecA, vecB)`
+- Calculates the cosine similarity between two vectors.
+  - Cosine similarity measures how similar two vectors are, ranging from `-1` (opposite) to `1` (identical).
 
-`findNearestNeighbors(queryEmbedding: number[], samples: Array<{embedding: number[]}>, { topK?: number, threshold?: number })`
+#### Parameters
 
-Finds top K nearest neighbors from samples by cosine similarity to `queryEmbedding`. Returns array of samples with `similarityScore` sorted descending
-- `options` (object): optional
-  - `topK` (number, default=1) max results
-  - `threshold` (number, default=0) min similarity between 0 and 1.
+- `vecA` (`number[]`): First vector.
+- `vecB` (`number[]`): Second vector.
+
+#### Returns
+
+- `number`: Cosine similarity score between `vecA` and `vecB`.
+
+#### Examples
+
+```js
+computeCosineSimilarity([1, 2, 3], [1, 2, 3]);
+// => 1 (identical vectors)
+
+computeCosineSimilarity([1, 0], [0, 1]);
+// => 0 (orthogonal vectors)
+
+computeCosineSimilarity([1, 2], [2, 3]);
+// => 0.9922778767136677
+
+computeCosineSimilarity([1, 0], [-1, 0]);
+// => -1 (vectors diametrically opposed)
+
+computeCosineSimilarity([0, 0], [1, 2]);
+// => 0 (one vector has zero magnitude)
+```
+
+### `findNearestNeighbors(queryEmbedding, samples, options)`
+- Finds the top K nearest neighbor samples to a query embedding using cosine similarity.
+
+#### Parameters
+- `queryEmbedding` (`number[]`): The embedding vector representing the query item.
+- `samples` (`Array<{ embedding: number[], [key: string]: any }>`): An array of dataset samples, each containing at least an embedding vector and optionally additional metadata.
+- `options` (`object`, optional): Optional parameters:
+  - `topK` (`number`, default `1`): Maximum number of top matches to return.
+  - `threshold` (`number`, default `0`): Minimum similarity score between `0` and `1` required for a sample to be considered a match.
+
+#### Returns
+- `Array<{ embedding: number[], similarityScore: number, [key: string]: any }>`: Array of top matching samples, each including a `similarityScore` property, sorted by descending similarity.
+
+#### Examples
+```js
+const samples = [
+  { embedding: [1, 0], label: 'A' },
+  { embedding: [0, 1], label: 'B' },
+  { embedding: [1, 1], label: 'C' },
+];
+
+findNearestNeighbors([1, 0], samples);
+// => [{ embedding: [1, 0], label: 'A', similarityScore: 1 }]
+
+findNearestNeighbors([1, 1], samples, { topK: 2 });
+// => [
+//   { embedding: [1, 1], label: 'C', similarityScore: 0.999... },
+//   { embedding: [1, 0], label: 'A', similarityScore: 0.707... }
+// ]
+
+findNearestNeighbors([1, 0], samples, { threshold: 0.9 });
+// => [{ embedding: [1, 0], label: 'A', similarityScore: 1 }]
+
+findNearestNeighbors([-1, 0], samples, { threshold: 1 });
+// => []
+```
 
 ## 🧪 Tests
 ```bash
