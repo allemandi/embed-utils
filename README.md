@@ -35,14 +35,13 @@ npm install @allemandi/embed-utils
 
 ## 🚀 Quick Usage Examples
 
-> 📘 For a complete list of methods and options, see [the API docs](https://github.com/allemandi/@allemandi/embed-utils/docs/API.md).
+> 📘 For a complete list of methods and options, see [the API docs](https://github.com/allemandi/embed-utils/blob/main/docs/API.md).
 
- 
-ESM
+**ESM**
 ```bash
 import { computeCosineSimilarity } from '@allemandi/embed-utils';
 ```
-CommonJS
+**CommonJS**
 
 ```js
 const { findNearestNeighbors } = require('@allemandi/embed-utils');
@@ -62,7 +61,7 @@ console.log(results);
 //  [ { embedding: [0.1, 0.2, 0.3], label: "sports", similarityScore: 1 },
 //    { embedding: [0.05, 0.1, 0.15], label: "sports", similarityScore: 1 } ] 
 ```
-UMD (Browser)
+**UMD (Browser)**
 ```js
 <script src="https://unpkg.com/@allemandi/embed-utils"></script>
 <script>
