@@ -3,9 +3,9 @@
 [![NPM Version](https://img.shields.io/npm/v/@allemandi/embed-utils)](https://www.npmjs.com/package/@allemandi/embed-utils)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/allemandi/embed-utils/blob/main/LICENSE)
 
-> Utilities for text classification using cosine similarity embeddings.
+> **Fast, type-safe utilities for comparing and searching vector embeddings.**
 >
-> Supports ESM, CommonJS, and UMD – works in modern builds, Node.js, and browsers.
+> Works in Node.js, browsers – supports ESM, CommonJS, and UMD
  
 <!-- omit from toc -->
 ## 🔖 Table of Contents
@@ -22,7 +22,6 @@
 - 🔍 Find the closest matches between vector embeddings
 - 📐 Compute cosine similarity
 - ⚡ Lightweight and fast vector operations
-- 🧪 Supports both ES Modules (ESM) and CommonJS (CJS)
 
 ## 🛠️ Installation
 ```bash

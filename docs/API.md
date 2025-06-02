@@ -13,8 +13,6 @@
 
 Calculates the cosine similarity between two vectors.
 
-Cosine similarity measures how similar two vectors are, ranging from -1 (opposite) to 1 (identical).
-
 ### Parameters
 
 *   `vecA` **[Array][7]<[number][8]>** First vector.
@@ -58,7 +56,10 @@ based on cosine similarity.
 
 *   `queryEmbedding` **[Array][7]<[number][8]>** The embedding vector to compare against.
 *   `samples` **[Array][7]<{embedding: [Array][7]<[number][8]>, label: [string][9]}>** An array of samples, each with an `embedding` and a `label`.
-*   `options`   (optional, default `{}`)
+*   `options` **[object][10]** Optional settings. (optional, default `{}`)
+
+    *   `options.topK` **[number][8]** Number of top results to return. Default is 1. (optional, default `1`)
+    *   `options.threshold` **[number][8]** Minimum similarity score threshold for results. (optional, default `0`)
 
 ### Examples
 
@@ -104,3 +105,5 @@ Returns **[Array][7]<{embedding: [Array][7]<[number][8]>, label: [string][9], si
 [8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
 [9]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
