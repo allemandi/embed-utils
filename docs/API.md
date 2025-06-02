@@ -12,6 +12,7 @@
 ## computeCosineSimilarity
 
 Calculates the cosine similarity between two vectors.
+Cosine similarity measures how similar two vectors are, ranging from -1 (opposite) to 1 (identical).
 
 ### Parameters
 
@@ -23,24 +24,12 @@ Calculates the cosine similarity between two vectors.
 ```javascript
 computeCosineSimilarity([1, 2, 3], [1, 2, 3]);
 // => 1 (identical vectors)
-```
-
-```javascript
 computeCosineSimilarity([1, 0], [0, 1]);
 // => 0 (orthogonal vectors)
-```
-
-```javascript
 computeCosineSimilarity([1, 2], [2, 3]);
 // => 0.9922778767136677
-```
-
-```javascript
 computeCosineSimilarity([1, 0], [-1, 0]);
 // => -1 (vectors diametrically opposed)
-```
-
-```javascript
 computeCosineSimilarity([0, 0], [1, 2]);
 // => 0 (one vector has zero magnitude)
 ```
