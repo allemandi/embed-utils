@@ -1,6 +1,6 @@
 /**
  * Calculates the cosine similarity between two vectors.
- *
+ * @public
  * Cosine similarity measures how similar two vectors are, ranging from -1 (opposite) to 1 (identical).
  *
  * @param {number[]} vecA - First vector.

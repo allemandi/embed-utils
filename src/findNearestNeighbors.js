@@ -3,11 +3,11 @@ import { computeCosineSimilarity } from './computeCosineSimilarity';
 /**
  * Finds the nearest neighbors to a given query embedding from a list of samples
  * based on cosine similarity.
- *
+ * @public
  * @param {number[]} queryEmbedding - The embedding vector to compare against.
  * @param {{ embedding: number[], label: string }[]} samples - An array of samples, each with an `embedding` and a `label`.
- * @param {{ topK?: number, threshold?: number }} [options={}] - Optional settings.
- * @param {number} [options.topK=1] - Number of top results to return.
+ * @param {object} [options={}] - Optional settings.
+ * @param {number} [options.topK=1] - Number of top results to return. Default is 1.
  * @param {number} [options.threshold=0] - Minimum similarity score threshold for results.
  * 
  * @returns {{ embedding: number[], label: string, similarityScore: number }[]} - An array of nearest neighbors with similarity scores.

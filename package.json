@@ -5,9 +5,18 @@
     "main": "dist/index.cjs",
     "module": "dist/index.module.js",
     "unpkg": "dist/index.umd.js",
+    "types": "dist/index.d.ts",
+    "source": "src/index.js",
+    "type": "module",
     "exports": {
-        "import": "./dist/index.module.js",
-        "require": "./dist/index.cjs"
+        "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.module.js"
+        },
+        "require": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.cjs"
+        }
     },
     "keywords": [
         "text",
@@ -21,13 +30,15 @@
         "LICENSE"
     ],
     "scripts": {
-        "test": "node --experimental-vm-modules node_modules/.bin/jest",
+        "test:jest": "node --experimental-vm-modules node_modules/.bin/jest",
+        "test:types": "tsc --noEmit",
+        "test": "yarn run test:jest && yarn run test:types",
         "lint": "eslint .",
-        "build": "microbundle --name allemandi.embedUtils",
-        "docs": "documentation build ./src/*.js -f md -o ./docs/API.md"
+        "docs": "documentation build src/*.js -f md -o ./docs/API.md --access public --sort-order kind",
+        "build:js": "microbundle --name allemandi.embedUtils",
+        "build:types": "tsc --project tsconfig.json",
+        "build": "yarn run build:js && yarn run build:types"
     },
-    "source": "src/index.js",
-    "type": "module",
     "repository": "https://github.com/allemandi/embed-utils",
     "author": "allemandi <69766017+allemandi@users.noreply.github.com>",
     "license": "MIT",
@@ -37,6 +48,7 @@
         "eslint": "^9.27.0",
         "globals": "^16.1.0",
         "jest": "^29.7.0",
-        "microbundle": "^0.15.1"
+        "microbundle": "^0.15.1",
+        "typescript": "^5.8.3"
     }
 }
