@@ -1,4 +1,4 @@
-import { computeCosineSimilarity } from './computeCosineSimilarity';
+import { computeCosineSimilarity } from './similarity.js';
 
 /**
  * Finds the nearest neighbors to a given query embedding from a list of samples

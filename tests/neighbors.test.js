@@ -1,4 +1,4 @@
-import { findNearestNeighbors } from '../src/findNearestNeighbors';
+import { findNearestNeighbors } from '../src/utils/neighbors';
 
 describe('findNearestNeighbors', () => {
     const samples = [

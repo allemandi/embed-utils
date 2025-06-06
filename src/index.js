@@ -1,7 +1,2 @@
-import { computeCosineSimilarity } from './computeCosineSimilarity.js';
-import { findNearestNeighbors } from './findNearestNeighbors.js';
-
-export {
-    computeCosineSimilarity,
-    findNearestNeighbors,
-};
+export * from './utils/similarity.js';
+export * from './utils/neighbors.js';

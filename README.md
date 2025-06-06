@@ -64,9 +64,8 @@ console.log(results);
 ```js
 <script src="https://unpkg.com/@allemandi/embed-utils"></script>
 <script>
-    const a = [1, 2, 3];
-    const b = [1, 2, 3];
-  const result = window.allemandi.embedUtils.computeCosineSimilarity(a, b);
+    const vectorsToNormalize = [3, 4];
+  const result = window.allemandi.embedUtils.normalizeVector(vectorsToNormalize);
   console.log(result);
 </script>
 ```
