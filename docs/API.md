@@ -5,9 +5,15 @@
 *   [computeCosineSimilarity][1]
     *   [Parameters][2]
     *   [Examples][3]
-*   [findNearestNeighbors][4]
+*   [normalizeVector][4]
     *   [Parameters][5]
     *   [Examples][6]
+*   [isNormalized][7]
+    *   [Parameters][8]
+    *   [Examples][9]
+*   [findNearestNeighbors][10]
+    *   [Parameters][11]
+    *   [Examples][12]
 
 ## computeCosineSimilarity
 
@@ -16,8 +22,8 @@ Cosine similarity measures how similar two vectors are, ranging from -1 (opposit
 
 ### Parameters
 
-*   `vecA` **[Array][7]<[number][8]>** First vector.
-*   `vecB` **[Array][7]<[number][8]>** Second vector.
+*   `vecA` **[Array][13]<[number][14]>** First vector.
+*   `vecB` **[Array][13]<[number][14]>** Second vector.
 
 ### Examples
 
@@ -34,7 +40,52 @@ computeCosineSimilarity([0, 0], [1, 2]);
 // => 0 (one vector has zero magnitude)
 ```
 
-Returns **[number][8]** Cosine similarity score between `vecA` and `vecB`.
+Returns **[number][14]** Cosine similarity score between `vecA` and `vecB`.
+
+## normalizeVector
+
+Normalizes a vector to unit length. If the vector has zero magnitude, returns the original vector.
+
+### Parameters
+
+*   `vec` **[Array][13]<[number][14]>** Input vector.
+
+### Examples
+
+```javascript
+normalizeVector([3, 4]);
+// => [0.6, 0.8] (vector normalized to length 1)
+normalizeVector([0, 0]);
+// => [0, 0] (zero vector remains unchanged)
+normalizeVector([1, 1, 1]);
+// => [0.5773502691896258, 0.5773502691896258, 0.5773502691896258]
+```
+
+Returns **[Array][13]<[number][14]>** A new vector scaled to unit length.
+
+## isNormalized
+
+Efficiently checks if a vector is L2-normalized (unit length).
+
+### Parameters
+
+*   `vec` **[Array][13]<[number][14]>** Input vector.
+*   `epsilon` **[number][14]** Tolerance for floating-point comparison. (optional, default `1e-6`)
+
+### Examples
+
+```javascript
+isNormalized([1, 0]);
+// => true (vector length is exactly 1)
+isNormalized([0.6, 0.8]);
+// => true (approximately unit length)
+isNormalized([3, 4]);
+// => false (length is 5)
+isNormalized([0, 0]);
+// => false (length is 0)
+```
+
+Returns **[boolean][15]** True if the L2 norm is within epsilon of 1.
 
 ## findNearestNeighbors
 
@@ -43,12 +94,12 @@ based on cosine similarity.
 
 ### Parameters
 
-*   `queryEmbedding` **[Array][7]<[number][8]>** The embedding vector to compare against.
-*   `samples` **[Array][7]<{embedding: [Array][7]<[number][8]>, label: [string][9]}>** An array of samples, each with an `embedding` and a `label`.
-*   `options` **[object][10]** Optional settings. (optional, default `{}`)
+*   `queryEmbedding` **[Array][13]<[number][14]>** The embedding vector to compare against.
+*   `samples` **[Array][13]<{embedding: [Array][13]<[number][14]>, label: [string][16]}>** An array of samples, each with an `embedding` and a `label`.
+*   `options` **[object][17]** Optional settings. (optional, default `{}`)
 
-    *   `options.topK` **[number][8]** Number of top results to return. Default is 1. (optional, default `1`)
-    *   `options.threshold` **[number][8]** Minimum similarity score threshold for results. (optional, default `0`)
+    *   `options.topK` **[number][14]** Number of top results to return. Default is 1. (optional, default `1`)
+    *   `options.threshold` **[number][14]** Minimum similarity score threshold for results. (optional, default `0`)
 
 ### Examples
 
@@ -75,7 +126,7 @@ findNearestNeighbors([-1, 0], samples, { threshold: 1 });
 // => []
 ```
 
-Returns **[Array][7]<{embedding: [Array][7]<[number][8]>, label: [string][9], similarityScore: [number][8]}>** An array of nearest neighbors with similarity scores.
+Returns **[Array][13]<{embedding: [Array][13]<[number][14]>, label: [string][16], similarityScore: [number][14]}>** An array of nearest neighbors with similarity scores.
 
 [1]: #computecosinesimilarity
 
@@ -83,16 +134,30 @@ Returns **[Array][7]<{embedding: [Array][7]<[number][8]>, label: [string][9], si
 
 [3]: #examples
 
-[4]: #findnearestneighbors
+[4]: #normalizevector
 
 [5]: #parameters-1
 
 [6]: #examples-1
 
-[7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[7]: #isnormalized
 
-[8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[8]: #parameters-2
 
-[9]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[9]: #examples-2
 
-[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[10]: #findnearestneighbors
+
+[11]: #parameters-3
+
+[12]: #examples-3
+
+[13]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[14]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
