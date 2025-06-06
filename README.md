@@ -37,7 +37,7 @@ npm install @allemandi/embed-utils
 > 📘 For a complete list of methods and options, see [the API docs](https://github.com/allemandi/embed-utils/blob/main/docs/API.md).
 
 **ESM**
-```bash
+```js
 import { computeCosineSimilarity } from '@allemandi/embed-utils';
 ```
 **CommonJS**
