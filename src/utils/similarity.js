@@ -21,7 +21,6 @@ function computeCosineSimilarity(vecA, vecB) {
     let dot = 0;
     let magA = 0;
     let magB = 0;
-
     for (let i = 0; i < vecA.length; i++) {
         const a = vecA[i];
         const b = vecB[i];
@@ -29,12 +28,9 @@ function computeCosineSimilarity(vecA, vecB) {
         magA += a * a;
         magB += b * b;
     }
-
     const denom = Math.sqrt(magA) * Math.sqrt(magB);
-
     return denom === 0 ? 0 : dot / denom;
 }
-
 
 /**
  * Normalizes a vector to unit length. If the vector has zero magnitude, returns the original vector.
@@ -54,17 +50,14 @@ function normalizeVector(vec) {
     for (let i = 0; i < vec.length; i++) {
         sumSquares += vec[i] * vec[i];
     }
-
     const magnitude = Math.sqrt(sumSquares);
     if (magnitude === 0) return vec.slice();
     const result = new Array(vec.length);
     for (let i = 0; i < vec.length; i++) {
         result[i] = vec[i] / magnitude;
     }
-
     return result;
 }
-
 
 /**
  * Efficiently checks if a vector is L2-normalized (unit length).
@@ -91,9 +84,39 @@ function isNormalized(vec, epsilon = 1e-6) {
     return Math.abs(sum - 1) <= epsilon;
 }
 
+/**
+ * Computes the mean (centroid) vector from an array of vectors.
+ * Assumes all vectors are of equal length.
+ * @public
+ * @param {number[][]} vectors - Array of input vectors.
+ * @returns {number[]} - The mean vector.
+ * @example
+ * meanVector([[1, 2], [3, 4], [5, 6]]);
+ * // => [3, 4]
+ * meanVector([]);
+ * // => []
+ */
+function meanVector(vectors) {
+    const numVectors = vectors.length;
+    if (numVectors === 0) return [];
+    const dim = vectors[0].length;
+    const mean = new Array(dim).fill(0);
+    for (let i = 0; i < numVectors; i++) {
+        const vec = vectors[i];
+        for (let j = 0; j < dim; j++) {
+            mean[j] += vec[j];
+        }
+    }
+    for (let j = 0; j < dim; j++) {
+        mean[j] /= numVectors;
+    }
+    return mean;
+}
+
 
 export {
     computeCosineSimilarity,
     normalizeVector,
-    isNormalized
+    isNormalized,
+    meanVector,
 };

@@ -19,8 +19,8 @@
 
 ## ✨ Features
 
-- 🔍 Find the closest matches between vector embeddings
-- 📐 Compute cosine similarity
+- 🔍 Find nearest neighbors by cosine similarity
+- 📐 Compute, normalize, and verify vector similarity
 - ⚡ Lightweight and fast vector operations
 
 ## 🛠️ Installation
@@ -37,7 +37,7 @@ npm install @allemandi/embed-utils
 > 📘 For a complete list of methods and options, see [the API docs](https://github.com/allemandi/embed-utils/blob/main/docs/API.md).
 
 **ESM**
-```bash
+```js
 import { computeCosineSimilarity } from '@allemandi/embed-utils';
 ```
 **CommonJS**
@@ -71,6 +71,9 @@ console.log(results);
 ```
 
 ## 🧪 Tests
+
+> Available in the GitHub repo only.
+
 ```bash
 # Run the test suite with Jest
 yarn test

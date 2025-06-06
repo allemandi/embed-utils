@@ -11,12 +11,15 @@
 *   [isNormalized][7]
     *   [Parameters][8]
     *   [Examples][9]
-*   [findNearestNeighbors][10]
+*   [meanVector][10]
     *   [Parameters][11]
     *   [Examples][12]
-*   [rankBySimilarity][13]
+*   [findNearestNeighbors][13]
     *   [Parameters][14]
     *   [Examples][15]
+*   [rankBySimilarity][16]
+    *   [Parameters][17]
+    *   [Examples][18]
 
 ## computeCosineSimilarity
 
@@ -25,8 +28,8 @@ Cosine similarity measures how similar two vectors are, ranging from -1 (opposit
 
 ### Parameters
 
-*   `vecA` **[Array][16]<[number][17]>** First vector.
-*   `vecB` **[Array][16]<[number][17]>** Second vector.
+*   `vecA` **[Array][19]<[number][20]>** First vector.
+*   `vecB` **[Array][19]<[number][20]>** Second vector.
 
 ### Examples
 
@@ -43,7 +46,7 @@ computeCosineSimilarity([0, 0], [1, 2]);
 // => 0 (one vector has zero magnitude)
 ```
 
-Returns **[number][17]** Cosine similarity score between `vecA` and `vecB`.
+Returns **[number][20]** Cosine similarity score between `vecA` and `vecB`.
 
 ## normalizeVector
 
@@ -51,7 +54,7 @@ Normalizes a vector to unit length. If the vector has zero magnitude, returns th
 
 ### Parameters
 
-*   `vec` **[Array][16]<[number][17]>** Input vector.
+*   `vec` **[Array][19]<[number][20]>** Input vector.
 
 ### Examples
 
@@ -64,7 +67,7 @@ normalizeVector([1, 1, 1]);
 // => [0.5773502691896258, 0.5773502691896258, 0.5773502691896258]
 ```
 
-Returns **[Array][16]<[number][17]>** A new vector scaled to unit length.
+Returns **[Array][19]<[number][20]>** A new vector scaled to unit length.
 
 ## isNormalized
 
@@ -72,8 +75,8 @@ Efficiently checks if a vector is L2-normalized (unit length).
 
 ### Parameters
 
-*   `vec` **[Array][16]<[number][17]>** Input vector.
-*   `epsilon` **[number][17]** Tolerance for floating-point comparison. (optional, default `1e-6`)
+*   `vec` **[Array][19]<[number][20]>** Input vector.
+*   `epsilon` **[number][20]** Tolerance for floating-point comparison. (optional, default `1e-6`)
 
 ### Examples
 
@@ -88,7 +91,27 @@ isNormalized([0, 0]);
 // => false (length is 0)
 ```
 
-Returns **[boolean][18]** True if the L2 norm is within epsilon of 1.
+Returns **[boolean][21]** True if the L2 norm is within epsilon of 1.
+
+## meanVector
+
+Computes the mean (centroid) vector from an array of vectors.
+Assumes all vectors are of equal length.
+
+### Parameters
+
+*   `vectors` &#x20;
+
+### Examples
+
+```javascript
+meanVector([[1, 2], [3, 4], [5, 6]]);
+// => [3, 4]
+meanVector([]);
+// => []
+```
+
+Returns **[Array][19]<[number][20]>** The mean vector.
 
 ## findNearestNeighbors
 
@@ -97,12 +120,12 @@ based on cosine similarity.
 
 ### Parameters
 
-*   `queryEmbedding` **[Array][16]<[number][17]>** The embedding vector to compare against.
-*   `samples` **[Array][16]<{embedding: [Array][16]<[number][17]>, label: [string][19]}>** An array of samples, each with an `embedding` and a `label`.
-*   `options` **[object][20]** Optional settings. (optional, default `{}`)
+*   `queryEmbedding` **[Array][19]<[number][20]>** The embedding vector to compare against.
+*   `samples` **[Array][19]<{embedding: [Array][19]<[number][20]>, label: [string][22]}>** An array of samples, each with an `embedding` and a `label`.
+*   `options` **[object][23]** Optional settings. (optional, default `{}`)
 
-    *   `options.topK` **[number][17]** Number of top results to return. Default is 1. (optional, default `1`)
-    *   `options.threshold` **[number][17]** Minimum similarity score threshold for results. (optional, default `0`)
+    *   `options.topK` **[number][20]** Number of top results to return. Default is 1. (optional, default `1`)
+    *   `options.threshold` **[number][20]** Minimum similarity score threshold for results. (optional, default `0`)
 
 ### Examples
 
@@ -129,7 +152,7 @@ findNearestNeighbors([-1, 0], samples, { threshold: 1 });
 // => []
 ```
 
-Returns **[Array][16]<{embedding: [Array][16]<[number][17]>, label: [string][19], similarityScore: [number][17]}>** An array of nearest neighbors with similarity scores.
+Returns **[Array][19]<{embedding: [Array][19]<[number][20]>, label: [string][22], similarityScore: [number][20]}>** An array of nearest neighbors with similarity scores.
 
 ## rankBySimilarity
 
@@ -138,8 +161,8 @@ Does NOT apply threshold or topK filtering.
 
 ### Parameters
 
-*   `queryEmbedding` **[Array][16]<[number][17]>** The embedding vector to compare against.
-*   `samples` **[Array][16]<{embedding: [Array][16]<[number][17]>, label: [string][19]}>** Samples with embeddings and labels.
+*   `queryEmbedding` **[Array][19]<[number][20]>** The embedding vector to compare against.
+*   `samples` **[Array][19]<{embedding: [Array][19]<[number][20]>, label: [string][22]}>** Samples with embeddings and labels.
 
 ### Examples
 
@@ -164,7 +187,7 @@ rankBySimilarity([0, 1], samples);
 // ]
 ```
 
-Returns **[Array][16]<{embedding: [Array][16]<[number][17]>, label: [string][19], similarityScore: [number][17]}>** Sorted by descending similarity.
+Returns **[Array][19]<{embedding: [Array][19]<[number][20]>, label: [string][22], similarityScore: [number][20]}>** Sorted by descending similarity.
 
 [1]: #computecosinesimilarity
 
@@ -184,24 +207,30 @@ Returns **[Array][16]<{embedding: [Array][16]<[number][17]>, label: [string][19]
 
 [9]: #examples-2
 
-[10]: #findnearestneighbors
+[10]: #meanvector
 
 [11]: #parameters-3
 
 [12]: #examples-3
 
-[13]: #rankbysimilarity
+[13]: #findnearestneighbors
 
 [14]: #parameters-4
 
 [15]: #examples-4
 
-[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[16]: #rankbysimilarity
 
-[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[17]: #parameters-5
 
-[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[18]: #examples-5
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object

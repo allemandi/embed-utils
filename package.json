@@ -1,6 +1,6 @@
 {
     "name": "@allemandi/embed-utils",
-    "version": "2.5.0",
+    "version": "2.6.0",
     "description": "text classification embedding utils for cosine similarity",
     "main": "dist/index.cjs",
     "module": "dist/index.module.js",
@@ -26,6 +26,7 @@
         "vector",
         "similarity-search",
         "semantic-search",
+        "vector-search",
         "type-safe",
         "umd",
         "esm",
