@@ -51,10 +51,50 @@ function findNearestNeighbors(queryEmbedding, samples, options = {}) {
     }
 
     scoredSamples.sort((a, b) => b.similarityScore - a.similarityScore);
-
     return scoredSamples.slice(0, topK);
 }
 
+
+/**
+ * Ranks all samples by cosine similarity to the query embedding.
+ * Does NOT apply threshold or topK filtering.
+ * @public
+ * @param {number[]} queryEmbedding - The embedding vector to compare against.
+ * @param {{ embedding: number[], label: string }[]} samples - Samples with embeddings and labels.
+ * @returns {{ embedding: number[], label: string, similarityScore: number }[]} Sorted by descending similarity.
+ * @example
+ * const samples = [
+ *   { embedding: [1, 0], label: 'A' },
+ *   { embedding: [0, 1], label: 'B' },
+ *   { embedding: [1, 1], label: 'C' },
+ * ];
+ * rankBySimilarity([1, 0], samples);
+ * // => [
+ * //   { embedding: [1, 0], label: 'A', similarityScore: 1 },
+ * //   { embedding: [1, 1], label: 'C', similarityScore: 0.707... },
+ * //   { embedding: [0, 1], label: 'B', similarityScore: 0 }
+ * // ]
+ *
+ * rankBySimilarity([0, 1], samples);
+ * // => [
+ * //   { embedding: [0, 1], label: 'B', similarityScore: 1 },
+ * //   { embedding: [1, 1], label: 'C', similarityScore: 0.707... },
+ * //   { embedding: [1, 0], label: 'A', similarityScore: 0 }
+ * // ]
+ */
+function rankBySimilarity(queryEmbedding, samples) {
+    const results = new Array(samples.length);
+    for (let i = 0; i < samples.length; i++) {
+        results[i] = {
+            ...samples[i],
+            similarityScore: computeCosineSimilarity(queryEmbedding, samples[i].embedding),
+        };
+    }
+    results.sort((a, b) => b.similarityScore - a.similarityScore);
+    return results;
+}
+
 export {
-    findNearestNeighbors
+    findNearestNeighbors,
+    rankBySimilarity,
 };
