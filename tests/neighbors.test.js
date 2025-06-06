@@ -31,7 +31,6 @@ describe('findNearestNeighbors', () => {
     });
 });
 
-
 describe('rankBySimilarity', () => {
     const samples = [
         { embedding: [1, 0], label: 'A' },

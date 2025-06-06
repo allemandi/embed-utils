@@ -19,8 +19,8 @@
 
 ## ✨ Features
 
-- 🔍 Find the closest matches between vector embeddings
-- 📐 Compute cosine similarity
+- 🔍 Find nearest neighbors by cosine similarity
+- 📐 Compute, normalize, and verify vector similarity
 - ⚡ Lightweight and fast vector operations
 
 ## 🛠️ Installation
@@ -71,6 +71,9 @@ console.log(results);
 ```
 
 ## 🧪 Tests
+
+> Available in the GitHub repo only.
+
 ```bash
 # Run the test suite with Jest
 yarn test

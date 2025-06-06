@@ -9,9 +9,7 @@ import { computeCosineSimilarity } from './similarity.js';
  * @param {object} [options={}] - Optional settings.
  * @param {number} [options.topK=1] - Number of top results to return. Default is 1.
  * @param {number} [options.threshold=0] - Minimum similarity score threshold for results.
- * 
  * @returns {{ embedding: number[], label: string, similarityScore: number }[]} - An array of nearest neighbors with similarity scores.
- *
  * @example
  * const samples = [
  *   { embedding: [1, 0], label: 'A' },
@@ -36,9 +34,7 @@ import { computeCosineSimilarity } from './similarity.js';
  */
 function findNearestNeighbors(queryEmbedding, samples, options = {}) {
     const { topK = 1, threshold = 0 } = options;
-
     const scoredSamples = [];
-
     for (const sample of samples) {
         const similarityScore = computeCosineSimilarity(queryEmbedding, sample.embedding);
 
@@ -49,11 +45,9 @@ function findNearestNeighbors(queryEmbedding, samples, options = {}) {
             });
         }
     }
-
     scoredSamples.sort((a, b) => b.similarityScore - a.similarityScore);
     return scoredSamples.slice(0, topK);
 }
-
 
 /**
  * Ranks all samples by cosine similarity to the query embedding.
