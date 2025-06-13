@@ -1,7 +1,7 @@
 {
     "name": "@allemandi/embed-utils",
     "version": "2.6.0",
-    "description": "text classification embedding utils for cosine similarity",
+    "description": "Fast, type-safe utilities for comparing and searching vector embeddings.",
     "main": "dist/index.cjs",
     "module": "dist/index.module.js",
     "unpkg": "dist/index.umd.js",
