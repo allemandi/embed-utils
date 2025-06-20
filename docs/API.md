@@ -29,9 +29,9 @@
 
 ## computeCosineSimilarity
 
-Calculates the cosine similarity between two vectors.
-Cosine similarity measures the directional similarity between two vectors,
-with values ranging from -1 (opposite) to 1 (identical).
+Calculates cosine similarity between two vectors.
+Measures how similar their directions are, ignoring magnitude.
+Use for comparing semantic or normalized vectors (e.g., text embeddings).
 
 ### Parameters
 
@@ -57,8 +57,9 @@ Returns **[number][26]** Cosine similarity score between `vecA` and `vecB`.
 
 ## computeEuclideanDistance
 
-Calculates the Euclidean distance (L2 norm) between two vectors.
-Euclidean distance measures the straight-line distance between two points in Euclidean space.
+Calculates Euclidean distance between two vectors.
+Measures straight-line distance considering both magnitude and direction.
+Use for raw numeric data or spatial coordinates.
 
 ### Parameters
 
@@ -82,8 +83,9 @@ Returns **[number][26]** Euclidean distance between `vecA` and `vecB`.
 
 ## computeManhattanDistance
 
-Calculates the Manhattan distance between two vectors.
-Manhattan distance (L1 norm, taxicab distance) is the sum of absolute differences between corresponding elements.
+Calculates Manhattan distance between two vectors.
+Measures sum of absolute differences.
+Use for grid-like data or when less sensitive to large differences.
 
 ### Parameters
 
