@@ -85,8 +85,8 @@ describe('findNearestNeighbors', () => {
             const input = [1, 0];
             const result = findNearestNeighbors(input, samples, { method: 'manhattan', topK: 2 });
             expect(result.length).toBe(2);
-            expect(result[0].label).toBe('A'); 
-            expect(result[1].label).toBe('C'); 
+            expect(result[0].label).toBe('A');
+            expect(result[1].label).toBe('C');
             expect(result[0].distance).toBeCloseTo(0);
             expect(result[1].distance).toBeCloseTo(1);
         });
@@ -99,9 +99,9 @@ describe('findNearestNeighbors', () => {
         test('handles different manhattan distances correctly', () => {
             const input = [0, 1];
             const result = findNearestNeighbors(input, samples, { method: 'manhattan', topK: 3 });
-            expect(result[0].label).toBe('B'); 
-            expect(result[1].label).toBe('C'); 
-            expect(result[2].label).toBe('A'); 
+            expect(result[0].label).toBe('B');
+            expect(result[1].label).toBe('C');
+            expect(result[2].label).toBe('A');
             expect(result[0].distance).toBe(0);
             expect(result[1].distance).toBe(1);
             expect(result[2].distance).toBe(2);
@@ -159,14 +159,14 @@ describe('rankBySimilarity', () => {
             expect(results[0].distance).toBeCloseTo(0);
             expect(results[1].label).toBe('C');
             expect(results[1].distance).toBeCloseTo(1);
-            expect(results[2].label).toBe('B'); 
+            expect(results[2].label).toBe('B');
             expect(results[2].distance).toBeCloseTo(Math.sqrt(2));
         });
         test('ranks samples by euclidean distance to [0, 1]', () => {
             const results = rankBySimilarity([0, 1], samples, { method: 'euclidean' });
             expect(results[0].label).toBe('B');
             expect(results[0].distance).toBeCloseTo(0);
-            expect(results[1].label).toBe('C'); 
+            expect(results[1].label).toBe('C');
             expect(results[1].distance).toBeCloseTo(1);
             expect(results[2].label).toBe('A');
             expect(results[2].distance).toBeCloseTo(Math.sqrt(2));

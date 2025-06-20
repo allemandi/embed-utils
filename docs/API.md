@@ -177,6 +177,12 @@ Returns **[Array][25]<[number][26]>** The mean vector.
 Finds the nearest neighbors to a given query embedding from a list of samples
 based on the specified distance/similarity method.
 
+`'cosine'`: Cosine similarity (higher = more similar, range: \[-1, 1]).
+
+`'euclidean'`: Euclidean distance (lower = closer, ≥ 0).
+
+`'manhattan'`: Manhattan distance (lower = closer, ≥ 0).
+
 ### Parameters
 
 *   `queryEmbedding` **[Array][25]<[number][26]>** The embedding vector to compare against.
@@ -185,7 +191,7 @@ based on the specified distance/similarity method.
 
     *   `options.topK` **[number][26]** Number of top results to return. Default is 1. (optional, default `1`)
     *   `options.threshold` **[number][26]?** Minimum similarity score threshold for results (cosine) or maximum distance threshold (euclidean/manhattan).
-    *   `options.method` **DistanceMethod** Distance/similarity method to use. Default is 'cosine'. (optional, default `'cosine'`)
+    *   `options.method` **(`"cosine"` | `"euclidean"` | `"manhattan"`)** The metric to compute: (optional, default `'cosine'`)
 
 ### Examples
 
@@ -227,7 +233,7 @@ Does NOT apply threshold or topK filtering.
 *   `samples` **[Array][25]<{embedding: [Array][25]<[number][26]>, label: [string][28]}>** Samples with embeddings and labels.
 *   `options` **[object][29]** Optional settings. (optional, default `{}`)
 
-    *   `options.method` **DistanceMethod** Distance/similarity method to use. Default is 'cosine'. (optional, default `'cosine'`)
+    *   `options.method` **(`"cosine"` | `"euclidean"` | `"manhattan"`)** Distance/similarity method to use. Default is 'cosine'. (optional, default `'cosine'`)
 
 ### Examples
 

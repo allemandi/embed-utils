@@ -1,7 +1,7 @@
 {
     "name": "@allemandi/embed-utils",
-    "version": "2.7.0",
-    "description": "Fast, type-safe utilities for comparing and searching vector embeddings.",
+    "version": "2.7.1",
+    "description": "Fast, type-safe utilities for vector embedding comparison and search.",
     "main": "dist/index.cjs",
     "module": "dist/index.module.js",
     "unpkg": "dist/index.umd.js",
@@ -20,6 +20,8 @@
     },
     "keywords": [
         "cosine-similarity",
+        "euclidean-distance",
+        "manhattan-distance",
         "vector-similarity",
         "nearest-neighbor",
         "embeddings",
