@@ -1,6 +1,8 @@
 /**
- * Calculates the cosine similarity between two vectors.
- * Cosine similarity measures how similar two vectors are, ranging from -1 (opposite) to 1 (identical).
+ * Calculates cosine similarity between two vectors.
+ * Measures how similar their directions are, ignoring magnitude.
+ * Use for comparing semantic or normalized vectors (e.g., text embeddings).
+ * 
  * @public
  * @param {number[]} vecA - First vector.
  * @param {number[]} vecB - Second vector.
@@ -11,7 +13,7 @@
  * computeCosineSimilarity([1, 0], [0, 1]);
  * // => 0 (orthogonal vectors)
  * computeCosineSimilarity([1, 2], [2, 3]);
- * // => 0.9922778767136677
+ * // => 0.992...
  * computeCosineSimilarity([1, 0], [-1, 0]);
  * // => -1 (vectors diametrically opposed)
  * computeCosineSimilarity([0, 0], [1, 2]);
@@ -30,6 +32,61 @@ function computeCosineSimilarity(vecA, vecB) {
     }
     const denom = Math.sqrt(magA) * Math.sqrt(magB);
     return denom === 0 ? 0 : dot / denom;
+}
+
+/**
+ * Calculates Euclidean distance between two vectors.
+ * Measures straight-line distance considering both magnitude and direction.
+ * Use for raw numeric data or spatial coordinates.
+ * 
+ * @public
+ * @param {number[]} vecA - First vector.
+ * @param {number[]} vecB - Second vector.
+ * @returns {number} - Euclidean distance between `vecA` and `vecB`.
+ * @example
+ * computeEuclideanDistance([1, 2], [4, 6]);
+ * // => 5 (distance between (1,2) and (4,6))
+ * computeEuclideanDistance([0, 0], [0, 0]);
+ * // => 0 (identical vectors)
+ * computeEuclideanDistance([1, 0], [0, 1]);
+ * // => 1.414...
+ * computeEuclideanDistance([1, 2, 3], [4, 5, 6]);
+ * // => 5.196...
+ */
+function computeEuclideanDistance(vecA, vecB) {
+    let sum = 0;
+    for (let i = 0; i < vecA.length; i++) {
+        const diff = vecA[i] - vecB[i];
+        sum += diff * diff;
+    }
+    return Math.sqrt(sum);
+}
+
+/**
+ * Calculates Manhattan distance between two vectors.
+ * Measures sum of absolute differences.
+ * Use for grid-like data or when less sensitive to large differences.
+ * 
+ * @public
+ * @param {number[]} vecA - First vector.
+ * @param {number[]} vecB - Second vector.
+ * @returns {number} - Manhattan distance between `vecA` and `vecB`.
+ * @example
+ * computeManhattanDistance([1, 2, 3], [4, 5, 6]);
+ * // => 9
+ * computeManhattanDistance([1, 0], [0, 1]);
+ * // => 2
+ * computeManhattanDistance([1, 2], [1, 2]);
+ * // => 0 (identical vectors)
+ * computeManhattanDistance([1, -1], [-1, 1]);
+ * // => 4
+ */
+function computeManhattanDistance(vecA, vecB) {
+    let sum = 0;
+    for (let i = 0; i < vecA.length; i++) {
+        sum += Math.abs(vecA[i] - vecB[i]);
+    }
+    return sum;
 }
 
 /**
@@ -116,6 +173,8 @@ function meanVector(vectors) {
 
 export {
     computeCosineSimilarity,
+    computeEuclideanDistance,
+    computeManhattanDistance,
     normalizeVector,
     isNormalized,
     meanVector,

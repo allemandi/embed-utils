@@ -5,31 +5,38 @@
 *   [computeCosineSimilarity][1]
     *   [Parameters][2]
     *   [Examples][3]
-*   [normalizeVector][4]
+*   [computeEuclideanDistance][4]
     *   [Parameters][5]
     *   [Examples][6]
-*   [isNormalized][7]
+*   [computeManhattanDistance][7]
     *   [Parameters][8]
     *   [Examples][9]
-*   [meanVector][10]
+*   [normalizeVector][10]
     *   [Parameters][11]
     *   [Examples][12]
-*   [findNearestNeighbors][13]
+*   [isNormalized][13]
     *   [Parameters][14]
     *   [Examples][15]
-*   [rankBySimilarity][16]
+*   [meanVector][16]
     *   [Parameters][17]
     *   [Examples][18]
+*   [findNearestNeighbors][19]
+    *   [Parameters][20]
+    *   [Examples][21]
+*   [rankBySimilarity][22]
+    *   [Parameters][23]
+    *   [Examples][24]
 
 ## computeCosineSimilarity
 
-Calculates the cosine similarity between two vectors.
-Cosine similarity measures how similar two vectors are, ranging from -1 (opposite) to 1 (identical).
+Calculates cosine similarity between two vectors.
+Measures how similar their directions are, ignoring magnitude.
+Use for comparing semantic or normalized vectors (e.g., text embeddings).
 
 ### Parameters
 
-*   `vecA` **[Array][19]<[number][20]>** First vector.
-*   `vecB` **[Array][19]<[number][20]>** Second vector.
+*   `vecA` **[Array][25]<[number][26]>** First vector.
+*   `vecB` **[Array][25]<[number][26]>** Second vector.
 
 ### Examples
 
@@ -39,14 +46,66 @@ computeCosineSimilarity([1, 2, 3], [1, 2, 3]);
 computeCosineSimilarity([1, 0], [0, 1]);
 // => 0 (orthogonal vectors)
 computeCosineSimilarity([1, 2], [2, 3]);
-// => 0.9922778767136677
+// => 0.992...
 computeCosineSimilarity([1, 0], [-1, 0]);
 // => -1 (vectors diametrically opposed)
 computeCosineSimilarity([0, 0], [1, 2]);
 // => 0 (one vector has zero magnitude)
 ```
 
-Returns **[number][20]** Cosine similarity score between `vecA` and `vecB`.
+Returns **[number][26]** Cosine similarity score between `vecA` and `vecB`.
+
+## computeEuclideanDistance
+
+Calculates Euclidean distance between two vectors.
+Measures straight-line distance considering both magnitude and direction.
+Use for raw numeric data or spatial coordinates.
+
+### Parameters
+
+*   `vecA` **[Array][25]<[number][26]>** First vector.
+*   `vecB` **[Array][25]<[number][26]>** Second vector.
+
+### Examples
+
+```javascript
+computeEuclideanDistance([1, 2], [4, 6]);
+// => 5 (distance between (1,2) and (4,6))
+computeEuclideanDistance([0, 0], [0, 0]);
+// => 0 (identical vectors)
+computeEuclideanDistance([1, 0], [0, 1]);
+// => 1.414...
+computeEuclideanDistance([1, 2, 3], [4, 5, 6]);
+// => 5.196...
+```
+
+Returns **[number][26]** Euclidean distance between `vecA` and `vecB`.
+
+## computeManhattanDistance
+
+Calculates Manhattan distance between two vectors.
+Measures sum of absolute differences.
+Use for grid-like data or when less sensitive to large differences.
+
+### Parameters
+
+*   `vecA` **[Array][25]<[number][26]>** First vector.
+*   `vecB` **[Array][25]<[number][26]>** Second vector.
+
+### Examples
+
+```javascript
+computeManhattanDistance([1, 2, 3], [4, 5, 6]);
+// => 9
+computeManhattanDistance([1, 0], [0, 1]);
+// => 2
+computeManhattanDistance([1, 2], [1, 2]);
+// => 0 (identical vectors)
+computeManhattanDistance([1, -1], [-1, 1]);
+// => 4
+```
+
+Returns **[number][26]** Manhattan distance between `vecA` and `vecB`.
 
 ## normalizeVector
 
@@ -54,7 +113,7 @@ Normalizes a vector to unit length. If the vector has zero magnitude, returns th
 
 ### Parameters
 
-*   `vec` **[Array][19]<[number][20]>** Input vector.
+*   `vec` **[Array][25]<[number][26]>** Input vector.
 
 ### Examples
 
@@ -67,7 +126,7 @@ normalizeVector([1, 1, 1]);
 // => [0.5773502691896258, 0.5773502691896258, 0.5773502691896258]
 ```
 
-Returns **[Array][19]<[number][20]>** A new vector scaled to unit length.
+Returns **[Array][25]<[number][26]>** A new vector scaled to unit length.
 
 ## isNormalized
 
@@ -75,8 +134,8 @@ Efficiently checks if a vector is L2-normalized (unit length).
 
 ### Parameters
 
-*   `vec` **[Array][19]<[number][20]>** Input vector.
-*   `epsilon` **[number][20]** Tolerance for floating-point comparison. (optional, default `1e-6`)
+*   `vec` **[Array][25]<[number][26]>** Input vector.
+*   `epsilon` **[number][26]** Tolerance for floating-point comparison. (optional, default `1e-6`)
 
 ### Examples
 
@@ -91,7 +150,7 @@ isNormalized([0, 0]);
 // => false (length is 0)
 ```
 
-Returns **[boolean][21]** True if the L2 norm is within epsilon of 1.
+Returns **[boolean][27]** True if the L2 norm is within epsilon of 1.
 
 ## meanVector
 
@@ -111,21 +170,22 @@ meanVector([]);
 // => []
 ```
 
-Returns **[Array][19]<[number][20]>** The mean vector.
+Returns **[Array][25]<[number][26]>** The mean vector.
 
 ## findNearestNeighbors
 
 Finds the nearest neighbors to a given query embedding from a list of samples
-based on cosine similarity.
+based on the specified distance/similarity method.
 
 ### Parameters
 
-*   `queryEmbedding` **[Array][19]<[number][20]>** The embedding vector to compare against.
-*   `samples` **[Array][19]<{embedding: [Array][19]<[number][20]>, label: [string][22]}>** An array of samples, each with an `embedding` and a `label`.
-*   `options` **[object][23]** Optional settings. (optional, default `{}`)
+*   `queryEmbedding` **[Array][25]<[number][26]>** The embedding vector to compare against.
+*   `samples` **[Array][25]<{embedding: [Array][25]<[number][26]>, label: [string][28]}>** An array of samples, each with an `embedding` and a `label`.
+*   `options` **[object][29]** Optional settings. (optional, default `{}`)
 
-    *   `options.topK` **[number][20]** Number of top results to return. Default is 1. (optional, default `1`)
-    *   `options.threshold` **[number][20]** Minimum similarity score threshold for results. (optional, default `0`)
+    *   `options.topK` **[number][26]** Number of top results to return. Default is 1. (optional, default `1`)
+    *   `options.threshold` **[number][26]?** Minimum similarity score threshold for results (cosine) or maximum distance threshold (euclidean/manhattan).
+    *   `options.method` **DistanceMethod** Distance/similarity method to use. Default is 'cosine'. (optional, default `'cosine'`)
 
 ### Examples
 
@@ -136,33 +196,38 @@ const samples = [
   { embedding: [1, 1], label: 'C' },
 ];
 
+// Default cosine similarity
 findNearestNeighbors([1, 0], samples);
 // => [{ embedding: [1, 0], label: 'A', similarityScore: 1 }]
 
-findNearestNeighbors([1, 1], samples, { topK: 2 });
+// Euclidean distance
+findNearestNeighbors([1, 0], samples, { method: 'euclidean', topK: 2 });
 // => [
-//   { embedding: [1, 1], label: 'C', similarityScore: 0.999... },
-//   { embedding: [1, 0], label: 'A', similarityScore: 0.707... }
+//   { embedding: [1, 0], label: 'A', distance: 0 },
+//   { embedding: [1, 1], label: 'C', distance: 1 }
 // ]
 
+// Manhattan distance with threshold
+findNearestNeighbors([1, 0], samples, { method: 'manhattan', threshold: 1.5 });
+// => [{ embedding: [1, 0], label: 'A', distance: 0 }, { embedding: [1, 1], label: 'C', distance: 1 }]
+
+// Cosine with threshold
 findNearestNeighbors([1, 0], samples, { threshold: 0.9 });
 // => [{ embedding: [1, 0], label: 'A', similarityScore: 1 }]
-
-findNearestNeighbors([-1, 0], samples, { threshold: 1 });
-// => []
 ```
-
-Returns **[Array][19]<{embedding: [Array][19]<[number][20]>, label: [string][22], similarityScore: [number][20]}>** An array of nearest neighbors with similarity scores.
 
 ## rankBySimilarity
 
-Ranks all samples by cosine similarity to the query embedding.
+Ranks all samples by similarity/distance to the query embedding.
 Does NOT apply threshold or topK filtering.
 
 ### Parameters
 
-*   `queryEmbedding` **[Array][19]<[number][20]>** The embedding vector to compare against.
-*   `samples` **[Array][19]<{embedding: [Array][19]<[number][20]>, label: [string][22]}>** Samples with embeddings and labels.
+*   `queryEmbedding` **[Array][25]<[number][26]>** The embedding vector to compare against.
+*   `samples` **[Array][25]<{embedding: [Array][25]<[number][26]>, label: [string][28]}>** Samples with embeddings and labels.
+*   `options` **[object][29]** Optional settings. (optional, default `{}`)
+
+    *   `options.method` **DistanceMethod** Distance/similarity method to use. Default is 'cosine'. (optional, default `'cosine'`)
 
 ### Examples
 
@@ -172,6 +237,8 @@ const samples = [
   { embedding: [0, 1], label: 'B' },
   { embedding: [1, 1], label: 'C' },
 ];
+
+// Default cosine similarity
 rankBySimilarity([1, 0], samples);
 // => [
 //   { embedding: [1, 0], label: 'A', similarityScore: 1 },
@@ -179,15 +246,22 @@ rankBySimilarity([1, 0], samples);
 //   { embedding: [0, 1], label: 'B', similarityScore: 0 }
 // ]
 
-rankBySimilarity([0, 1], samples);
+// Euclidean distance
+rankBySimilarity([1, 0], samples, { method: 'euclidean' });
 // => [
-//   { embedding: [0, 1], label: 'B', similarityScore: 1 },
-//   { embedding: [1, 1], label: 'C', similarityScore: 0.707... },
-//   { embedding: [1, 0], label: 'A', similarityScore: 0 }
+//   { embedding: [1, 0], label: 'A', distance: 0 },
+//   { embedding: [1, 1], label: 'C', distance: 1 },
+//   { embedding: [0, 1], label: 'B', distance: 1.414... }
+// ]
+
+// Manhattan distance
+rankBySimilarity([0, 1], samples, { method: 'manhattan' });
+// => [
+//   { embedding: [0, 1], label: 'B', distance: 0 },
+//   { embedding: [1, 1], label: 'C', distance: 1 },
+//   { embedding: [1, 0], label: 'A', distance: 2 }
 // ]
 ```
-
-Returns **[Array][19]<{embedding: [Array][19]<[number][20]>, label: [string][22], similarityScore: [number][20]}>** Sorted by descending similarity.
 
 [1]: #computecosinesimilarity
 
@@ -195,42 +269,54 @@ Returns **[Array][19]<{embedding: [Array][19]<[number][20]>, label: [string][22]
 
 [3]: #examples
 
-[4]: #normalizevector
+[4]: #computeeuclideandistance
 
 [5]: #parameters-1
 
 [6]: #examples-1
 
-[7]: #isnormalized
+[7]: #computemanhattandistance
 
 [8]: #parameters-2
 
 [9]: #examples-2
 
-[10]: #meanvector
+[10]: #normalizevector
 
 [11]: #parameters-3
 
 [12]: #examples-3
 
-[13]: #findnearestneighbors
+[13]: #isnormalized
 
 [14]: #parameters-4
 
 [15]: #examples-4
 
-[16]: #rankbysimilarity
+[16]: #meanvector
 
 [17]: #parameters-5
 
 [18]: #examples-5
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[19]: #findnearestneighbors
 
-[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[20]: #parameters-6
 
-[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[21]: #examples-6
 
-[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[22]: #rankbysimilarity
 
-[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[23]: #parameters-7
+
+[24]: #examples-7
+
+[25]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[26]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[27]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[28]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[29]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
