@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/@allemandi/embed-utils)](https://www.npmjs.com/package/@allemandi/embed-utils)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/allemandi/embed-utils/blob/main/LICENSE)
 
-> **Fast, type-safe utilities for comparing and searching vector embeddings.**
+> **Fast, type-safe utilities for vector embedding comparison and search.**
 >
 > Works in Node.js, browsers – supports ESM, CommonJS, and UMD
  
@@ -19,7 +19,7 @@
 
 ## ✨ Features
 
-- 🔍 Find nearest neighbors by cosine similarity
+- 🔍 Find nearest neighbors by cosine similarity, or Euclidean/Manhattan distance
 - 📐 Compute, normalize, and verify vector similarity
 - ⚡ Lightweight and fast vector operations
 
@@ -54,11 +54,24 @@ const samples = [
 const query = [0.09, 0.18, 0.27];
 
 //  Find top 2 neighbors with similarity ≥ 0.5
-const results = findNearestNeighbors(query, samples, { topK: 2, threshold: 0.5 });
+// (default method: cosine similarity)
+const resultsCosine = findNearestNeighbors(query, samples, { topK: 2, threshold: 0.5 });
 
-console.log(results);
+console.log(resultsCosine);
 //  [ { embedding: [0.1, 0.2, 0.3], label: "sports", similarityScore: 1 },
 //    { embedding: [0.05, 0.1, 0.15], label: "sports", similarityScore: 1 } ] 
+
+// Find top 3 neighbors with Euclidean distance ≤ 1.1
+const resultsEuclidean = findNearestNeighbors(query, samples, {
+  topK: 3,
+  threshold: 1.1,
+  method: 'euclidean',
+});
+
+console.log(resultsEuclidean.length);
+// 2
+// only 2 results that pass threshold conditions
+
 ```
 **UMD (Browser)**
 ```js
