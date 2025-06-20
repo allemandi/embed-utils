@@ -1,6 +1,7 @@
 /**
  * Calculates the cosine similarity between two vectors.
- * Cosine similarity measures how similar two vectors are, ranging from -1 (opposite) to 1 (identical).
+ * Cosine similarity measures the directional similarity between two vectors, 
+ * with values ranging from -1 (opposite) to 1 (identical).
  * @public
  * @param {number[]} vecA - First vector.
  * @param {number[]} vecB - Second vector.
@@ -11,7 +12,7 @@
  * computeCosineSimilarity([1, 0], [0, 1]);
  * // => 0 (orthogonal vectors)
  * computeCosineSimilarity([1, 2], [2, 3]);
- * // => 0.9922778767136677
+ * // => 0.992...
  * computeCosineSimilarity([1, 0], [-1, 0]);
  * // => -1 (vectors diametrically opposed)
  * computeCosineSimilarity([0, 0], [1, 2]);
@@ -30,6 +31,32 @@ function computeCosineSimilarity(vecA, vecB) {
     }
     const denom = Math.sqrt(magA) * Math.sqrt(magB);
     return denom === 0 ? 0 : dot / denom;
+}
+
+/**
+ * Calculates the Euclidean distance (L2 norm) between two vectors.
+ * Euclidean distance measures the straight-line distance between two points in Euclidean space.
+ * @public
+ * @param {number[]} vecA - First vector.
+ * @param {number[]} vecB - Second vector.
+ * @returns {number} - Euclidean distance between `vecA` and `vecB`.
+ * @example
+ * computeEuclideanDistance([1, 2], [4, 6]);
+ * // => 5 (distance between (1,2) and (4,6))
+ * computeEuclideanDistance([0, 0], [0, 0]);
+ * // => 0 (identical vectors)
+ * computeEuclideanDistance([1, 0], [0, 1]);
+ * // => 1.414...
+ * computeEuclideanDistance([1, 2, 3], [4, 5, 6]);
+ * // => 5.196...
+ */
+function computeEuclideanDistance(vecA, vecB) {
+    let sum = 0;
+    for (let i = 0; i < vecA.length; i++) {
+        const diff = vecA[i] - vecB[i];
+        sum += diff * diff;
+    }
+    return Math.sqrt(sum);
 }
 
 /**
@@ -116,6 +143,7 @@ function meanVector(vectors) {
 
 export {
     computeCosineSimilarity,
+    computeEuclideanDistance,
     normalizeVector,
     isNormalized,
     meanVector,

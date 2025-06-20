@@ -1,4 +1,4 @@
-import { computeCosineSimilarity, normalizeVector, isNormalized, meanVector } from '../src/utils/similarity';
+import { computeCosineSimilarity, computeEuclideanDistance, normalizeVector, isNormalized, meanVector } from '../src/utils/similarity';
 
 describe('computeCosineSimilarity', () => {
     test('returns 1 for identical vectors', () => {
@@ -24,6 +24,40 @@ describe('computeCosineSimilarity', () => {
         expect(computeCosineSimilarity([0, 0], [1, 2])).toBe(0);
     });
 });
+
+describe('computeEuclideanDistance', () => {
+    test('returns 0 for identical vectors', () => {
+        const a = [1, 2, 3];
+        const b = [1, 2, 3];
+        expect(computeEuclideanDistance(a, b)).toBeCloseTo(0);
+    });
+
+    test('returns correct distance for orthogonal unit vectors', () => {
+        const a = [1, 0];
+        const b = [0, 1];
+        expect(computeEuclideanDistance(a, b)).toBeCloseTo(Math.sqrt(2));
+    });
+
+    test('returns correct value for known distance', () => {
+        const a = [1, 2];
+        const b = [4, 6];
+        expect(computeEuclideanDistance(a, b)).toBeCloseTo(5);
+    });
+
+    test('returns correct value in 3D space', () => {
+        const a = [1, 2, 3];
+        const b = [4, 5, 6];
+        expect(computeEuclideanDistance(a, b)).toBeCloseTo(Math.sqrt(27));
+    });
+
+    test('handles zero vector correctly', () => {
+        const a = [0, 0];
+        const b = [3, 4];
+        expect(computeEuclideanDistance(a, b)).toBeCloseTo(5);
+    });
+});
+
+
 
 describe('normalizeVector', () => {
     test('normalizes a 2D vector correctly', () => {
