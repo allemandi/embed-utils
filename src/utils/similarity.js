@@ -60,6 +60,31 @@ function computeEuclideanDistance(vecA, vecB) {
 }
 
 /**
+ * Calculates the Manhattan distance between two vectors.
+ * Manhattan distance (L1 norm, taxicab distance) is the sum of absolute differences between corresponding elements.
+ * @public
+ * @param {number[]} vecA - First vector.
+ * @param {number[]} vecB - Second vector.
+ * @returns {number} - Manhattan distance between `vecA` and `vecB`.
+ * @example
+ * computeManhattanDistance([1, 2, 3], [4, 5, 6]);
+ * // => 9
+ * computeManhattanDistance([1, 0], [0, 1]);
+ * // => 2
+ * computeManhattanDistance([1, 2], [1, 2]);
+ * // => 0 (identical vectors)
+ * computeManhattanDistance([1, -1], [-1, 1]);
+ * // => 4
+ */
+function computeManhattanDistance(vecA, vecB) {
+    let sum = 0;
+    for (let i = 0; i < vecA.length; i++) {
+        sum += Math.abs(vecA[i] - vecB[i]);
+    }
+    return sum;
+}
+
+/**
  * Normalizes a vector to unit length. If the vector has zero magnitude, returns the original vector.
  * @public
  * @param {number[]} vec - Input vector.
@@ -144,6 +169,7 @@ function meanVector(vectors) {
 export {
     computeCosineSimilarity,
     computeEuclideanDistance,
+    computeManhattanDistance,
     normalizeVector,
     isNormalized,
     meanVector,
