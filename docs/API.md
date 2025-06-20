@@ -175,7 +175,7 @@ Returns **[Array][25]<[number][26]>** The mean vector.
 ## findNearestNeighbors
 
 Finds the nearest neighbors to a given query embedding from a list of samples
-based on cosine similarity.
+based on the specified distance/similarity method.
 
 ### Parameters
 
@@ -184,7 +184,8 @@ based on cosine similarity.
 *   `options` **[object][29]** Optional settings. (optional, default `{}`)
 
     *   `options.topK` **[number][26]** Number of top results to return. Default is 1. (optional, default `1`)
-    *   `options.threshold` **[number][26]** Minimum similarity score threshold for results. (optional, default `0`)
+    *   `options.threshold` **[number][26]?** Minimum similarity score threshold for results (cosine) or maximum distance threshold (euclidean/manhattan).
+    *   `options.method` **DistanceMethod** Distance/similarity method to use. Default is 'cosine'. (optional, default `'cosine'`)
 
 ### Examples
 
@@ -195,33 +196,38 @@ const samples = [
   { embedding: [1, 1], label: 'C' },
 ];
 
+// Default cosine similarity
 findNearestNeighbors([1, 0], samples);
 // => [{ embedding: [1, 0], label: 'A', similarityScore: 1 }]
 
-findNearestNeighbors([1, 1], samples, { topK: 2 });
+// Euclidean distance
+findNearestNeighbors([1, 0], samples, { method: 'euclidean', topK: 2 });
 // => [
-//   { embedding: [1, 1], label: 'C', similarityScore: 0.999... },
-//   { embedding: [1, 0], label: 'A', similarityScore: 0.707... }
+//   { embedding: [1, 0], label: 'A', distance: 0 },
+//   { embedding: [1, 1], label: 'C', distance: 1 }
 // ]
 
+// Manhattan distance with threshold
+findNearestNeighbors([1, 0], samples, { method: 'manhattan', threshold: 1.5 });
+// => [{ embedding: [1, 0], label: 'A', distance: 0 }, { embedding: [1, 1], label: 'C', distance: 1 }]
+
+// Cosine with threshold
 findNearestNeighbors([1, 0], samples, { threshold: 0.9 });
 // => [{ embedding: [1, 0], label: 'A', similarityScore: 1 }]
-
-findNearestNeighbors([-1, 0], samples, { threshold: 1 });
-// => []
 ```
-
-Returns **[Array][25]<{embedding: [Array][25]<[number][26]>, label: [string][28], similarityScore: [number][26]}>** An array of nearest neighbors with similarity scores.
 
 ## rankBySimilarity
 
-Ranks all samples by cosine similarity to the query embedding.
+Ranks all samples by similarity/distance to the query embedding.
 Does NOT apply threshold or topK filtering.
 
 ### Parameters
 
 *   `queryEmbedding` **[Array][25]<[number][26]>** The embedding vector to compare against.
 *   `samples` **[Array][25]<{embedding: [Array][25]<[number][26]>, label: [string][28]}>** Samples with embeddings and labels.
+*   `options` **[object][29]** Optional settings. (optional, default `{}`)
+
+    *   `options.method` **DistanceMethod** Distance/similarity method to use. Default is 'cosine'. (optional, default `'cosine'`)
 
 ### Examples
 
@@ -231,6 +237,8 @@ const samples = [
   { embedding: [0, 1], label: 'B' },
   { embedding: [1, 1], label: 'C' },
 ];
+
+// Default cosine similarity
 rankBySimilarity([1, 0], samples);
 // => [
 //   { embedding: [1, 0], label: 'A', similarityScore: 1 },
@@ -238,15 +246,22 @@ rankBySimilarity([1, 0], samples);
 //   { embedding: [0, 1], label: 'B', similarityScore: 0 }
 // ]
 
-rankBySimilarity([0, 1], samples);
+// Euclidean distance
+rankBySimilarity([1, 0], samples, { method: 'euclidean' });
 // => [
-//   { embedding: [0, 1], label: 'B', similarityScore: 1 },
-//   { embedding: [1, 1], label: 'C', similarityScore: 0.707... },
-//   { embedding: [1, 0], label: 'A', similarityScore: 0 }
+//   { embedding: [1, 0], label: 'A', distance: 0 },
+//   { embedding: [1, 1], label: 'C', distance: 1 },
+//   { embedding: [0, 1], label: 'B', distance: 1.414... }
+// ]
+
+// Manhattan distance
+rankBySimilarity([0, 1], samples, { method: 'manhattan' });
+// => [
+//   { embedding: [0, 1], label: 'B', distance: 0 },
+//   { embedding: [1, 1], label: 'C', distance: 1 },
+//   { embedding: [1, 0], label: 'A', distance: 2 }
 // ]
 ```
-
-Returns **[Array][25]<{embedding: [Array][25]<[number][26]>, label: [string][28], similarityScore: [number][26]}>** Sorted by descending similarity.
 
 [1]: #computecosinesimilarity
 
