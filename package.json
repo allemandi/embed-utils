@@ -1,6 +1,6 @@
 {
     "name": "@allemandi/embed-utils",
-    "version": "2.7.4",
+    "version": "2.7.5",
     "description": "Fast, type-safe utilities for vector embedding comparison and search.",
     "main": "dist/index.cjs",
     "module": "dist/index.js",
