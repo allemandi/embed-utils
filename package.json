@@ -36,6 +36,7 @@
     "scripts": {
         "test:jest": "node --experimental-vm-modules node_modules/.bin/jest",
         "test:types": "tsc --noEmit",
+        "test:dist": "node tests/smoke-esm.js && node tests/smoke-cjs.cjs && node tests/smoke-umd.cjs",
         "test": "yarn run test:jest && yarn run test:types",
         "lint": "eslint .",
         "docs": "documentation build src/*.js -f md -o ./docs/API.md --access public --sort-order kind",
