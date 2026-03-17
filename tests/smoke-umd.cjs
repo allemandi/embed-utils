@@ -1,29 +1,20 @@
-const assert = require('assert');
-
-// In Node.js, Rollup's UMD with 'object'==typeof exports&&'undefined'!=typeof module
-// should work with require directly if we don't have issues with how it's bundled.
-// However, the user mentioned errors, and my manual 'require' showed empty keys.
-// This is often because of how Rollup handles named exports in UMD when required in Node.
-
-try {
-    const utils = require('../dist/index.umd.js');
-    if (typeof utils.computeCosineSimilarity === 'function') {
-        console.log('UMD smoke test passed (via require)');
-        process.exit(0);
-    }
-} catch (e) {
-    // ignore
-}
-
-// Fallback to manual evaluation which we know works in this environment
 const fs = require('fs');
 const path = require('path');
-const code = fs.readFileSync(path.join(__dirname, '../dist/index.umd.js'), 'utf8');
-const myModule = { exports: {} };
+const assert = require('assert');
 
-(function(module, exports) {
-    eval(code);
-})(myModule, myModule.exports);
+// We evaluate UMD in a controlled environment to verify its exports.
+// We explicitly pass undefined for 'process' to ensure it doesn't depend on it.
+const filepath = path.join(__dirname, '../dist/index.umd.js');
+const code = fs.readFileSync(filepath, 'utf8');
 
-assert.strictEqual(typeof myModule.exports.computeCosineSimilarity, 'function', 'UMD: computeCosineSimilarity not found on exports');
-console.log('UMD smoke test passed (via manual eval)');
+const mockModule = { exports: {} };
+try {
+    const wrapper = new Function('module', 'exports', 'process', code);
+    wrapper(mockModule, mockModule.exports, undefined);
+} catch (e) {
+    console.error('UMD Evaluation Error:', e.message);
+    process.exit(1);
+}
+
+assert.strictEqual(typeof mockModule.exports.computeCosineSimilarity, 'function', 'UMD: computeCosineSimilarity not found on exports');
+console.log('UMD smoke test passed');
