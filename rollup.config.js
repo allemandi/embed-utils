@@ -16,12 +16,14 @@ export default [
                 file: 'dist/index.cjs',
                 format: 'cjs',
                 sourcemap: true,
+                exports: 'named',
             },
             {
                 file: 'dist/index.umd.js',
                 format: 'umd',
                 name: 'allemandi.embedUtils',
                 sourcemap: true,
+                exports: 'named',
             },
         ],
         plugins: [
