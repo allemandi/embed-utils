@@ -49,11 +49,12 @@
     "devDependencies": {
         "@eslint/js": "^10.0.1",
         "@rollup/plugin-terser": "^1.0.0",
+        "@typescript/typescript6": "^6.0.2",
         "eslint": "^10.1.0",
         "globals": "^17.4.0",
         "jest": "^30.3.0",
         "rollup": "^4.60.1",
         "rollup-plugin-dts": "^6.4.1",
-        "typescript": "^5.9.3"
+        "typescript": "^7.0.2"
     }
 }
